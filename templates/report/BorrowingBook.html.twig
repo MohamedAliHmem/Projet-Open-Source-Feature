@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title%} Liste des auteurs par livre{% endblock %}
+{% block body %}
+{{ form_start(form) }}
+<div class="d-flex flex-row justify-content-center align-items-left" >
+<div class="col">
+ {{ form_row(form.book) }}
+</div>
+ <div class="col">
+ <div class="form-group">
+ <button type="submit" class="btn btn-warning">Search</button>
+ </div>
+</div>
+</div>
+{{ form_end(form) }}
+{% if borrowings %}
+ <table id="borrowing" class="table table-striped">
+ <thead>
+ <tr>
+
+<th>Student name</th>
+<th>Student surname</th>
+<td>Date borrowed</td>
+<td>Book returned</td>
+ </tr>
+ </thead>
+ <tbody>
+ {% for borrowing in borrowings %}
+ <tr>
+ <td>{{ borrowing.student.name }}</td>
+ <td>{{ borrowing.student.surname }}</td>
+<td>{{ (borrowing.dateBorrowed)|date('Y-m-d')  }}</td>
+<td>{{ borrowing.bookReturned ? 'Yes' : 'No' }}</td>
+
+
+ <td>
+{#  <a href="/article/{{ article.id }}" class="btn btndark">Détails</a>
+ <a href="/article/edit/{{ article.id }}" class="btn btndark">Modifier</a>
+ <a href="/article/delete/{{ article.id }}" class="btn btndanger"
+ onclick="return confirm('Etesvous sûr de supprimer cet article?');">Supprimer</a> #}
+ </td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+ <a href="{{ path('app_borrowing_index') }}" class="btn btn-secondary">back to list</a>
+ {% else %}
+ <p>Null borrowing</p>
+ {% endif %}
+{% endblock %}
+

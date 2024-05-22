@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %}login{% endblock %}
+{# ... #}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+        <h1>login</h1>
+            {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            {% for message in app.flashes('notice') %}
+            <div class="alert alert-info">
+            {{message}}
+            </div>
+            {% endfor %}
+            {% if app.user %}
+            <div class="mb-3">
+            18
+            You are logged in as {{ app.user.username }}, <a href="{{
+            path('app_logout') }}">Logout</a>
+            </div>
+            {% endif %}
+            <form action="{{ path('login') }}" method="post" class="mt-4">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Email:</label>
+                    <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" id="password" name="_password" class="form-control">
+                </div>
+                {# If you want to control the URL the user is redirected to on success
+                <input type="hidden" name="_target_path" value="/account"/> #}
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p>
+                <a href="{{ path('reset_password') }}">Forgot pass word</a> ?<br>
+                Create one
+                <a href="{{ path('app_register') }}">Compte ?</a>
+                </p>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
